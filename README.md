@@ -60,11 +60,11 @@ s
 
 8. Add the following xml to your Android Manifest file:
 
-Add permission:
+	Add permission:
 
 		<uses-permission android:name="android.permission.INTERNET" />
 
-Add activity:
+	Add activity:
 	
 		<activity android:name="com.chartboost.sdk.CBDialogActivity"
 			android:configChanges="orientation|keyboard|keyboardHidden"
