@@ -58,19 +58,19 @@ All the following files you need in Android are in `Charboost-x/android` fold.
 
 8. Add the following xml to your Android Manifest file:
 	
-	* Add permission:
+    * Add permission:
 
-			<uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.INTERNET" />
 
-	* Add activity:
+    * Add activity:
 	
-			<activity android:name="com.chartboost.sdk.CBDialogActivity"
-				android:configChanges="orientation|keyboard|keyboardHidden"
-				android:windowSoftInputMode="adjustResize"
-				android:theme="@android:style/Theme.Translucent"
-				android:launchMode="singleTop" 
-				>
-			</activity>
+            <activity android:name="com.chartboost.sdk.CBDialogActivity"
+            	android:configChanges="orientation|keyboard|keyboardHidden"
+            	android:windowSoftInputMode="adjustResize"
+            	android:theme="@android:style/Theme.Translucent"
+            	android:launchMode="singleTop" 
+            	>
+            </activity>
 
 #Email: <wenbin1989@gmail.com>
 #Blog: <http://geeksavetheworld.com>
