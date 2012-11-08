@@ -63,7 +63,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     pDirector->runWithScene(pScene);
     
     // Begin a user session. This should be done once per boot
-    ChartboostX::startSession();
+    ChartboostX::sharedChartboostX()->startSession();
     
     /*
      * Add your own app id & signature. These can be found on App Edit page for your app in the Chartboost dashboard
@@ -71,14 +71,14 @@ bool AppDelegate::applicationDidFinishLaunching() {
      * Notes:
      *   BE SURE YOU USE YOUR OWN CORRECT APP ID & SIGNATURE!
      */
-    ChartboostX::setAppId("4f7b433509b6025804000002");
-    ChartboostX::setAppSignature("dd2d41b69ac01b80f443f5b6cf06096d457f82bd");
+    ChartboostX::sharedChartboostX()->setAppId("4f7b433509b6025804000002");
+    ChartboostX::sharedChartboostX()->setAppSignature("dd2d41b69ac01b80f443f5b6cf06096d457f82bd");
     
     // Cache an interstitial at the default location
     //ChartboostX::cacheInterstitial();
     
     // Show an interstitial at the default location
-    ChartboostX::showInterstitial();
+    ChartboostX::sharedChartboostX()->showInterstitial();
 
     return true;
 }

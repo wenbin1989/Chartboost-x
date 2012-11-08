@@ -25,6 +25,22 @@
 #include "ChartboostX.h"
 #include "ChartboostXJni.h"
 
+static ChartboostX* s_pChartboostX = NULL;
+
+ChartboostX* ChartboostX::sharedChartboostX()
+{
+    if (s_pChartboostX == NULL)
+    {
+        s_pChartboostX = new ChartboostX();
+    }
+    return s_pChartboostX;
+}
+
+void ChartboostX::purgeChartboostX()
+{
+    CC_SAFE_DELETE(s_pChartboostX);
+}
+
 void ChartboostX::setAppId(const char * appId)
 {
     setAppIdJNI(appId);

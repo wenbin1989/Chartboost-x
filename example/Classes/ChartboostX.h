@@ -26,13 +26,18 @@
 #ifndef ChartboostX_ChartboostX_h
 #define ChartboostX_ChartboostX_h
 
+#include "cocos2d.h"
+
 class ChartboostX {
     
 public:
+    static ChartboostX* sharedChartboostX();
+    static void purgeChartboostX();
+    
     // set app id
-    static void setAppId(const char * appId);
+    void setAppId(const char * appId);
     // set app signature
-    static void setAppSignature(const char * appSignature);
+    void setAppSignature(const char * appSignature);
     /*
      * Begin a user session.
      *
@@ -40,15 +45,20 @@ public:
      * 
      * This should be done once per boot.
      */
-    static void startSession();
+    void startSession();
     // Cache an interstitial, optionally takes a location argument
-    static void cacheInterstitial(const char* location = 0);
+    void cacheInterstitial(const char* location = 0);
     // Show an interstitial, optionally takes a location argument
-    static void showInterstitial(const char* location = 0);
+    void showInterstitial(const char* location = 0);
     // Cache the More Apps page
-    static void cacheMoreApps();
+    void cacheMoreApps();
     // Show the More Apps page
-    static void showMoreApps();
+    void showMoreApps();
+    
+private:
+    ChartboostX()
+    {
+    }
 };
 
 #endif
