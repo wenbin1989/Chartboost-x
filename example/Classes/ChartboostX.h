@@ -28,6 +28,64 @@
 
 #include "cocos2d.h"
 
+class ChartboostXDelegate {
+public:
+    virtual ~ChartboostXDelegate() {}
+    
+    // Called before requesting an interestitial from the back-end
+    virtual bool shouldRequestInterstitial(const char* location) { return true; }
+    
+    // Called when an interstitial has been received, before it is presented on screen
+    // Return false if showing an interstitial is currently innapropriate, for example if the user has entered the main game mode.
+    virtual bool shouldDisplayInterstitial(const char* location) { return true; }
+    
+    // Called when an interstitial has been received and cached.
+    virtual void didCacheInterstitial(const char* location) {}
+    
+    // Called when an interstitial has failed to come back from the server
+    virtual void didFailToLoadInterstitial(const char* location) {}
+    
+    // Called when the user dismisses the interstitial
+    // If you are displaying the add yourself, dismiss it now.
+    virtual void didDismissInterstitial(const char* location) {}
+    
+    // Same as above, but only called when dismissed for a close
+    virtual void didCloseInterstitial(const char* location) {}
+    
+    // Same as above, but only called when dismissed for a click
+    virtual void didClickInterstitial(const char* location) {}
+    
+    
+    // Called before requesting the more apps view from the back-end
+    // Return false if when showing the loading view is not the desired user experience.
+    virtual bool shouldDisplayLoadingViewForMoreApps() { return true; }
+    
+    // Called when an more apps page has been received, before it is presented on screen
+    // Return false if showing the more apps page is currently innapropriate
+    virtual bool shouldDisplayMoreApps() { return true; }
+    
+    // Called when the More Apps page has been received and cached
+    virtual void didCacheMoreApps() {}
+    
+    // Called when a more apps page has failed to come back from the server
+    virtual void didFailToLoadMoreApps() {}
+    
+    // Called when the user dismisses the more apps view
+    // If you are displaying the add yourself, dismiss it now.
+    virtual void didDismissMoreApps() {}
+    
+    // Same as above, but only called when dismissed for a close
+    virtual void didCloseMoreApps() {}
+    
+    // Same as above, but only called when dismissed for a click
+    virtual void didClickMoreApps() {}
+    
+    
+    // Whether Chartboost should show ads in the first session
+    // Defaults to true
+    virtual bool shouldRequestInterstitialsInFirstSession() { return true; }
+};
+
 class ChartboostX {
     
 public:
@@ -47,18 +105,26 @@ public:
      */
     void startSession();
     // Cache an interstitial, optionally takes a location argument
-    void cacheInterstitial(const char* location = 0);
+    void cacheInterstitial(const char* location = NULL);
     // Show an interstitial, optionally takes a location argument
-    void showInterstitial(const char* location = 0);
+    void showInterstitial(const char* location = NULL);
+    // check if an interstitial is stored in cache for a default location, or a specific location
+    bool hasCachedInterstitial(const char* location = NULL);
     // Cache the More Apps page
     void cacheMoreApps();
     // Show the More Apps page
     void showMoreApps();
     
+    void setDelegate(ChartboostXDelegate* delegate) { m_delegate = delegate; }
+    ChartboostXDelegate* getDelegate() { return m_delegate; }
+    
 private:
     ChartboostX()
+    : m_delegate(NULL)
     {
     }
+    
+    ChartboostXDelegate* m_delegate;
 };
 
 #endif

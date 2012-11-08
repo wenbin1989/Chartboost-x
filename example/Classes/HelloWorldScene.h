@@ -2,21 +2,30 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
+#include "ChartboostX.h"
 
-class HelloWorld : public cocos2d::CCLayer
+class HelloWorld : public cocos2d::CCLayer, public ChartboostXDelegate
 {
 public:
-    // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();  
 
-    // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::CCScene* scene();
     
-    // a selector callback
+    // selector callback
     void menuCloseCallback(CCObject* pSender);
+    void menuCacheCallback(CCObject* pSender);
+    void menuShowCallback(CCObject* pSender);
+    
+    // ChartboostXDelegate method
+    bool shouldDisplayInterstitial(const char* location);
+    void didCacheInterstitial(const char* location);
+    void didDismissInterstitial(const char* location);
     
     // implement the "static node()" method manually
     CREATE_FUNC(HelloWorld);
+    
+private:
+    bool m_interstitialShowed;
 };
 
 #endif // __HELLOWORLD_SCENE_H__

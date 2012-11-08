@@ -28,6 +28,10 @@ bool HelloWorld::init()
         return false;
     }
     
+    m_interstitialShowed = false;
+    
+    ChartboostX::sharedChartboostX()->setDelegate(this);
+    
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
 
@@ -49,14 +53,8 @@ bool HelloWorld::init()
     CCMenu* pMenu = CCMenu::create(pCloseItem, NULL);
     pMenu->setPosition(CCPointZero);
     this->addChild(pMenu, 1);
-
-    /////////////////////////////
-    // 3. add your codes below...
-
-    // add a label shows "Hello World"
-    // create and initialize a label
     
-    CCLabelTTF* pLabel = CCLabelTTF::create("Hello World", "Arial", TITLE_FONT_SIZE);
+    CCLabelTTF* pLabel = CCLabelTTF::create("Hello Chartboost-X", "Arial", TITLE_FONT_SIZE);
     
     // position the label on the center of the screen
     pLabel->setPosition(ccp(origin.x + visibleSize.width/2,
@@ -65,14 +63,19 @@ bool HelloWorld::init()
     // add the label as a child to this layer
     this->addChild(pLabel, 1);
 
-    // add "HelloWorld" splash screen"
-    CCSprite* pSprite = CCSprite::create("HelloWorld.png");
-
-    // position the sprite on the center of the screen
-    pSprite->setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-
-    // add the sprite as a child to this layer
-    this->addChild(pSprite, 0);
+    
+    CCMenuItemFont* pCacheItem = CCMenuItemFont::create("Cache Interstitial", this, menu_selector(HelloWorld::menuCacheCallback));
+    pCacheItem->setFontSizeObj(TITLE_FONT_SIZE);
+    pCacheItem->setPosition(ccp(origin.x + visibleSize.width/4 ,
+                                origin.y + visibleSize.height/2));
+    pMenu->addChild(pCacheItem);
+    
+    CCMenuItemFont* pShowItem = CCMenuItemFont::create("Show Interstitial", this, menu_selector(HelloWorld::menuShowCallback));
+    pShowItem->setPosition(ccp(origin.x + visibleSize.width*3/4 ,
+                                origin.y + visibleSize.height/2));
+    pShowItem->setFontSizeObj(TITLE_FONT_SIZE);
+    pMenu->addChild(pShowItem);
+    
     
     return true;
 }
@@ -85,4 +88,44 @@ void HelloWorld::menuCloseCallback(CCObject* pSender)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);
 #endif
+}
+
+void HelloWorld::menuCacheCallback(CCObject* pSender)
+{
+    ChartboostX::sharedChartboostX()->cacheInterstitial();
+}
+
+void HelloWorld::menuShowCallback(CCObject* pSender)
+{
+    ChartboostX::sharedChartboostX()->showInterstitial();
+}
+
+bool HelloWorld::shouldDisplayInterstitial(const char* location)
+{
+    CCLOG("about to display interstitial at location %s", location);
+    
+    return !m_interstitialShowed;
+}
+
+void HelloWorld::didCacheInterstitial(const char* location)
+{
+    CCLOG("did cache interstitial at location %s", location);
+}
+
+void HelloWorld::didDismissInterstitial(const char* location)
+{
+    CCLOG("did dismiss interstitial at location %s", location);
+    
+    m_interstitialShowed = true;
+    
+    CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
+    CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
+    // add "HelloWorld" splash screen"
+    CCSprite* pSprite = CCSprite::create("HelloWorld.png");
+    
+    // position the sprite on the center of the screen
+    pSprite->setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+    
+    // add the sprite as a child to this layer
+    this->addChild(pSprite, 0);
 }

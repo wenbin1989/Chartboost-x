@@ -56,12 +56,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // set FPS. the default value is 1.0/60 if you don't call this
     pDirector->setAnimationInterval(1.0 / 60);
 
-    // create a scene. it's an autorelease object
-    CCScene *pScene = HelloWorld::scene();
-
-    // run
-    pDirector->runWithScene(pScene);
-    
     // Begin a user session. This should be done once per boot
     ChartboostX::sharedChartboostX()->startSession();
     
@@ -74,11 +68,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
     ChartboostX::sharedChartboostX()->setAppId("4f7b433509b6025804000002");
     ChartboostX::sharedChartboostX()->setAppSignature("dd2d41b69ac01b80f443f5b6cf06096d457f82bd");
     
-    // Cache an interstitial at the default location
-    //ChartboostX::cacheInterstitial();
-    
-    // Show an interstitial at the default location
-    ChartboostX::sharedChartboostX()->showInterstitial();
+    // create a scene. it's an autorelease object
+    CCScene *pScene = HelloWorld::scene();
+
+    // run
+    pDirector->runWithScene(pScene);
 
     return true;
 }
