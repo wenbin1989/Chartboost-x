@@ -26,7 +26,6 @@ package com.wenbin.hellochartboostx;
 import org.cocos2dx.lib.Cocos2dxActivity;
 
 import android.os.Bundle;
-import android.os.Handler;
 
 import com.wenbin.ChartboostX.*;
 
@@ -35,15 +34,14 @@ public class HelloChartboostX extends Cocos2dxActivity{
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		
-		ChartboostXBridge.setContext(this);
-		ChartboostXBridge.setHandler(new Handler());
+		ChartboostXBridge.initChartboostXBridge(this);
 	}
 	
 	@Override 
 	protected void onResume()
 	{
 	   	super.onResume();
-	   	ChartboostXBridge.setContext(this);
+	   	ChartboostXBridge.initChartboostXBridge(this);
 	}
 	
     static {

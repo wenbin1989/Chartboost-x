@@ -66,6 +66,13 @@ void ChartboostX::showInterstitial(const char* location)
     showInterstitialJNI(location);
 }
 
+bool ChartboostX::hasCachedInterstitial(const char* location)
+{
+    hasCachedInterstitialJNI(location);
+    
+    return false;
+}
+
 void ChartboostX::cacheMoreApps()
 {
     cacheMoreAppsJNI();

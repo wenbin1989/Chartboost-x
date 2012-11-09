@@ -23,6 +23,7 @@
  ****************************************************************************/
 
 #include "ChartboostXJni.h"
+#include "ChartboostX.h"
 
 #define  CLASS_NAME "com/wenbin/ChartboostX/ChartboostXBridge"
 
@@ -124,6 +125,31 @@ extern "C"
         }
 	}
     
+    void hasCachedInterstitialJNI(const char* location)
+    {
+        JniMethodInfo methodInfo;
+        
+        if (location) {
+            if (! JniHelper::getStaticMethodInfo(methodInfo, CLASS_NAME, "hasCachedInterstitial", "(Ljava/lang/String;)V"))
+            {
+                return;
+            }
+            jstring stringArg = methodInfo.env->NewStringUTF(location);
+            methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, stringArg);
+            
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
+            methodInfo.env->DeleteLocalRef(stringArg);
+        } else {
+            if (!  JniHelper::getStaticMethodInfo(methodInfo, CLASS_NAME, "hasCachedInterstitial", "()V"))
+            {
+                return;
+            }
+            methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID);
+            
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
+        }
+    }
+    
     void cacheMoreAppsJNI()
 	{
 		JniMethodInfo methodInfo;
@@ -148,5 +174,113 @@ extern "C"
 		methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID);
         
         methodInfo.env->DeleteLocalRef(methodInfo.classID);
+	}
+    
+    jboolean Java_com_wenbin_ChartboostX_ChartboostXBridge_shouldRequestInterstitial(JNIEnv*  env, jobject thiz, jstring location)
+	{
+        if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+            return delegate->shouldRequestInterstitial(JniHelper::jstring2string(location).c_str());
+        }
+        
+        return true;
+	}
+    
+    jboolean Java_com_wenbin_ChartboostX_ChartboostXBridge_shouldDisplayInterstitial(JNIEnv*  env, jobject thiz, jstring location)
+	{
+        if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+            return delegate->shouldDisplayInterstitial(JniHelper::jstring2string(location).c_str());
+        }
+        
+        return true;
+	}
+    
+    void Java_com_wenbin_ChartboostX_ChartboostXBridge_didCacheInterstitial(JNIEnv*  env, jobject thiz, jstring location)
+	{
+        if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+            delegate->didCacheInterstitial(JniHelper::jstring2string(location).c_str());
+        }
+    }
+    
+    void Java_com_wenbin_ChartboostX_ChartboostXBridge_didFailToLoadInterstitial(JNIEnv*  env, jobject thiz, jstring location)
+	{
+        if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+            delegate->didFailToLoadInterstitial(JniHelper::jstring2string(location).c_str());
+        }
+    }
+    
+    void Java_com_wenbin_ChartboostX_ChartboostXBridge_didDismissInterstitial(JNIEnv*  env, jobject thiz, jstring location)
+	{
+        if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+            delegate->didDismissInterstitial(JniHelper::jstring2string(location).c_str());
+        }
+    }
+    
+    void Java_com_wenbin_ChartboostX_ChartboostXBridge_didCloseInterstitial(JNIEnv*  env, jobject thiz, jstring location)
+	{
+        if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+            delegate->didCloseInterstitial(JniHelper::jstring2string(location).c_str());
+        }
+    }
+    
+    void Java_com_wenbin_ChartboostX_ChartboostXBridge_didClickInterstitial(JNIEnv*  env, jobject thiz, jstring location)
+	{
+        if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+            delegate->didClickInterstitial(JniHelper::jstring2string(location).c_str());
+        }
+    }
+    
+    jboolean Java_com_wenbin_ChartboostX_ChartboostXBridge_shouldDisplayLoadingViewForMoreApps(JNIEnv*  env, jobject thiz)
+	{
+        if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+            return delegate->shouldDisplayLoadingViewForMoreApps();
+        }
+        
+        return true;
+	}
+    
+    jboolean Java_com_wenbin_ChartboostX_ChartboostXBridge_shouldRequestMoreApps(JNIEnv*  env, jobject thiz)
+	{
+        if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+            return delegate->shouldRequestMoreApps();
+        }
+        
+        return true;
+	}
+    
+    jboolean Java_com_wenbin_ChartboostX_ChartboostXBridge_shouldDisplayMoreApps(JNIEnv*  env, jobject thiz)
+	{
+        if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+            return delegate->shouldDisplayMoreApps();
+        }
+        
+        return true;
+	}
+    
+    void Java_com_wenbin_ChartboostX_ChartboostXBridge_didFailToLoadMoreApps(JNIEnv*  env, jobject thiz)
+	{
+        if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+            delegate->didFailToLoadMoreApps();
+        }
+	}
+    
+    void Java_com_wenbin_ChartboostX_ChartboostXBridge_didDismissMoreApps(JNIEnv*  env, jobject thiz)
+	{
+        if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+            delegate->didDismissMoreApps();
+        }
+	}
+    
+    void Java_com_wenbin_ChartboostX_ChartboostXBridge_didCloseMoreApps(JNIEnv*  env, jobject thiz)
+	{
+        if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+            delegate->didCloseMoreApps();
+        }
+	}
+    
+    void Java_com_wenbin_ChartboostX_ChartboostXBridge_didClickMoreApps(JNIEnv*  env, jobject thiz)
+	{
+        if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+            delegate->didClickMoreApps();
+        }
 	}
 }

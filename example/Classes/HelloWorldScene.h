@@ -11,6 +11,8 @@ public:
 
     static cocos2d::CCScene* scene();
     
+    void continueGameLogic();
+    
     // selector callback
     void menuCloseCallback(CCObject* pSender);
     void menuCacheCallback(CCObject* pSender);
@@ -19,13 +21,16 @@ public:
     // ChartboostXDelegate method
     bool shouldDisplayInterstitial(const char* location);
     void didCacheInterstitial(const char* location);
-    void didDismissInterstitial(const char* location);
+    void didFailToLoadInterstitial(const char* location);
+    void didCloseInterstitial(const char* location);
+    void didClickInterstitial(const char* location);
     
     // implement the "static node()" method manually
     CREATE_FUNC(HelloWorld);
     
 private:
     bool m_interstitialShowed;
+    bool m_gameLogicContinued;
 };
 
 #endif // __HELLOWORLD_SCENE_H__

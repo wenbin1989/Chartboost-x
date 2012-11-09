@@ -32,39 +32,64 @@ class ChartboostXDelegate {
 public:
     virtual ~ChartboostXDelegate() {}
     
+    /**
+     * Interstital
+     */
+    
     // Called before requesting an interestitial from the back-end
+    // In Android, this method is called in UI Thread
+    // In Android, the param "location" will always be '\0'
     virtual bool shouldRequestInterstitial(const char* location) { return true; }
     
     // Called when an interstitial has been received, before it is presented on screen
     // Return false if showing an interstitial is currently innapropriate, for example if the user has entered the main game mode.
+    // In Android, this method is called in UI Thread
+    // In Android, the param "location" will always be '\0'
     virtual bool shouldDisplayInterstitial(const char* location) { return true; }
     
     // Called when an interstitial has been received and cached.
+    // In Android, this method will only be called if you call ChartboostX::hasCachedInterstitial(const char* location) first
     virtual void didCacheInterstitial(const char* location) {}
     
     // Called when an interstitial has failed to come back from the server
+    // In Android, the param "location" will always be '\0'
     virtual void didFailToLoadInterstitial(const char* location) {}
     
     // Called when the user dismisses the interstitial
     // If you are displaying the add yourself, dismiss it now.
+    // In Android, the param "location" will always be '\0'
     virtual void didDismissInterstitial(const char* location) {}
     
     // Same as above, but only called when dismissed for a close
+    // In Android, the param "location" will always be '\0'
     virtual void didCloseInterstitial(const char* location) {}
     
     // Same as above, but only called when dismissed for a click
+    // In Android, the param "location" will always be '\0'
     virtual void didClickInterstitial(const char* location) {}
     
+    /**
+     * More apps
+     */
     
     // Called before requesting the more apps view from the back-end
     // Return false if when showing the loading view is not the desired user experience.
+    // In Android, this method is called in UI Thread
     virtual bool shouldDisplayLoadingViewForMoreApps() { return true; }
+    
+    // Called before requesting the more apps from the back-end
+    // Return false if when showing the more apps is not the desired user experience.
+    // Only valid in Android
+    // In Android, this method is called in UI Thread
+    virtual bool shouldRequestMoreApps() { return true; }
     
     // Called when an more apps page has been received, before it is presented on screen
     // Return false if showing the more apps page is currently innapropriate
+    // In Android, this method is called in UI Thread
     virtual bool shouldDisplayMoreApps() { return true; }
     
     // Called when the More Apps page has been received and cached
+    // Only valid in iOS
     virtual void didCacheMoreApps() {}
     
     // Called when a more apps page has failed to come back from the server
@@ -80,9 +105,9 @@ public:
     // Same as above, but only called when dismissed for a click
     virtual void didClickMoreApps() {}
     
-    
     // Whether Chartboost should show ads in the first session
     // Defaults to true
+    // Only valid in iOS
     virtual bool shouldRequestInterstitialsInFirstSession() { return true; }
 };
 
@@ -109,6 +134,9 @@ public:
     // Show an interstitial, optionally takes a location argument
     void showInterstitial(const char* location = NULL);
     // check if an interstitial is stored in cache for a default location, or a specific location
+    // Only valid in iOS
+    // In Android, it will always return false, if the interstitial has cached when call this method,
+    // ChartboostXDelegate::didCacheInterstitial(const char* location) will be call-back.
     bool hasCachedInterstitial(const char* location = NULL);
     // Cache the More Apps page
     void cacheMoreApps();

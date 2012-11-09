@@ -37,6 +37,7 @@ extern "C"
     extern void installJNI();
     extern void cacheInterstitialJNI(const char* location);
     extern void showInterstitialJNI(const char* location);
+    extern void hasCachedInterstitialJNI(const char* location);
     extern void cacheMoreAppsJNI();
     extern void showMoreAppsJNI();
 }

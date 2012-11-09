@@ -26,6 +26,10 @@
 
 #import "Chartboost.h"
 
+// ChartboostDelegateBridge
+@interface ChartboostDelegateBridge : NSObject<ChartboostDelegate>
+@end
+static ChartboostDelegateBridge* s_pDelegateBridge = nil;
 
 static ChartboostX* s_pChartboostX = NULL;
 
@@ -34,6 +38,8 @@ ChartboostX* ChartboostX::sharedChartboostX()
     if (s_pChartboostX == NULL)
     {
         s_pChartboostX = new ChartboostX();
+        s_pDelegateBridge = [[ChartboostDelegateBridge alloc] init];
+        [[Chartboost sharedChartboost] setDelegate:s_pDelegateBridge];
     }
     return s_pChartboostX;
 }
@@ -41,6 +47,7 @@ ChartboostX* ChartboostX::sharedChartboostX()
 void ChartboostX::purgeChartboostX()
 {
     CC_SAFE_DELETE(s_pChartboostX);
+    [s_pDelegateBridge dealloc];
 }
 
 
@@ -82,6 +89,16 @@ void ChartboostX::showInterstitial(const char* location)
     }
 }
 
+bool ChartboostX::hasCachedInterstitial(const char* location)
+{
+    Chartboost *cb = [Chartboost sharedChartboost];
+    if (location) {
+        return [cb hasCachedInterstitial : [NSString stringWithUTF8String:location]];
+    } else {
+        return [cb hasCachedInterstitial];
+    }
+}
+
 void ChartboostX::cacheMoreApps()
 {
     Chartboost *cb = [Chartboost sharedChartboost];
@@ -93,3 +110,113 @@ void ChartboostX::showMoreApps()
     Chartboost *cb = [Chartboost sharedChartboost];
     [cb showMoreApps];
 }
+
+/*
+ * Chartboost Delegate Methods
+ *
+ */
+@implementation ChartboostDelegateBridge
+
+- (BOOL)shouldRequestInterstitial:(NSString *)location {
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        return delegate->shouldRequestInterstitial([location UTF8String]);
+    }
+
+    return YES;
+}
+
+- (BOOL)shouldDisplayInterstitial:(NSString *)location {
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        return delegate->shouldDisplayInterstitial([location UTF8String]);
+    }
+
+    return YES;
+}
+
+- (void)didCacheInterstitial:(NSString *)location {
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        delegate->didCacheInterstitial([location UTF8String]);
+    }
+}
+
+- (void)didFailToLoadInterstitial:(NSString *)location {
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        delegate->didFailToLoadInterstitial([location UTF8String]);
+    }
+}
+
+- (void)didDismissInterstitial:(NSString *)location {
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        delegate->didDismissInterstitial([location UTF8String]);
+    }
+}
+
+- (void)didCloseInterstitial:(NSString *)location {
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        delegate->didCloseInterstitial([location UTF8String]);
+    }
+}
+
+- (void)didClickInterstitial:(NSString *)location {
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        delegate->didClickInterstitial([location UTF8String]);
+    }
+}
+
+- (BOOL)shouldDisplayLoadingViewForMoreApps {
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        return delegate->shouldDisplayLoadingViewForMoreApps();
+    }
+    
+    return YES;
+}
+
+- (BOOL)shouldDisplayMoreApps {
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        return delegate->shouldDisplayMoreApps();
+    }
+    
+    return YES;
+}
+
+- (void)didCacheMoreApps {
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        delegate->didCacheMoreApps();
+    }
+}
+
+- (void)didFailToLoadMoreApps {
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        delegate->didFailToLoadMoreApps();
+    }
+}
+
+- (void)didDismissMoreApps {
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        delegate->didDismissMoreApps();
+    }
+}
+
+- (void)didCloseMoreApps {
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        delegate->didCloseMoreApps();
+    }
+}
+
+- (void)didClickMoreApps {
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        delegate->didClickMoreApps();
+    }
+}
+
+- (BOOL)shouldRequestInterstitialsInFirstSession {
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        return delegate->shouldRequestInterstitialsInFirstSession();
+    }
+    
+    return YES;
+}
+
+@end
+
+

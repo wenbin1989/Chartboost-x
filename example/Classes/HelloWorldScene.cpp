@@ -29,6 +29,7 @@ bool HelloWorld::init()
     }
     
     m_interstitialShowed = false;
+    m_gameLogicContinued = false;
     
     ChartboostX::sharedChartboostX()->setDelegate(this);
     
@@ -80,6 +81,23 @@ bool HelloWorld::init()
     return true;
 }
 
+void HelloWorld::continueGameLogic()
+{
+    if (!m_gameLogicContinued) {
+        CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
+        CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
+        // add "HelloWorld" splash screen"
+        CCSprite* pSprite = CCSprite::create("HelloWorld.png");
+        
+        // position the sprite on the center of the screen
+        pSprite->setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+        
+        // add the sprite as a child to this layer
+        this->addChild(pSprite, 0);
+    }
+    
+    m_gameLogicContinued = true;
+}
 
 void HelloWorld::menuCloseCallback(CCObject* pSender)
 {
@@ -97,35 +115,39 @@ void HelloWorld::menuCacheCallback(CCObject* pSender)
 
 void HelloWorld::menuShowCallback(CCObject* pSender)
 {
+    ChartboostX::sharedChartboostX()->hasCachedInterstitial();
     ChartboostX::sharedChartboostX()->showInterstitial();
 }
 
 bool HelloWorld::shouldDisplayInterstitial(const char* location)
 {
-    CCLOG("about to display interstitial at location %s", location);
+    CCLog("about to display interstitial at location %s", location);
     
     return !m_interstitialShowed;
 }
 
 void HelloWorld::didCacheInterstitial(const char* location)
 {
-    CCLOG("did cache interstitial at location %s", location);
+    CCLog("did cache interstitial at location %s", location);
 }
 
-void HelloWorld::didDismissInterstitial(const char* location)
+void HelloWorld::didFailToLoadInterstitial(const char* location)
 {
-    CCLOG("did dismiss interstitial at location %s", location);
+    CCLog("did fail to load interstitial at location %s", location);
     
+    continueGameLogic();
+}
+
+void HelloWorld::didCloseInterstitial(const char* location)
+{
+    CCLog("did close interstitial at location %s", location);
     m_interstitialShowed = true;
-    
-    CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
-    CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
-    // add "HelloWorld" splash screen"
-    CCSprite* pSprite = CCSprite::create("HelloWorld.png");
-    
-    // position the sprite on the center of the screen
-    pSprite->setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-    
-    // add the sprite as a child to this layer
-    this->addChild(pSprite, 0);
+    continueGameLogic();
+}
+
+void HelloWorld::didClickInterstitial(const char* location)
+{
+    CCLog("did click interstitial at location %s", location);
+    m_interstitialShowed = true;
+    continueGameLogic();
 }

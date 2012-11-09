@@ -118,127 +118,102 @@ void ChartboostX::showMoreApps()
 @implementation ChartboostDelegateBridge
 
 - (BOOL)shouldRequestInterstitial:(NSString *)location {
-    if (s_pChartboostX) {
-        if (ChartboostXDelegate* delegate = s_pChartboostX->getDelegate()) {
-            return delegate->shouldRequestInterstitial([location UTF8String]);
-        }
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        return delegate->shouldRequestInterstitial([location UTF8String]);
     }
+
     return YES;
 }
 
 - (BOOL)shouldDisplayInterstitial:(NSString *)location {
-    if (s_pChartboostX) {
-        if (ChartboostXDelegate* delegate = s_pChartboostX->getDelegate()) {
-            return delegate->shouldDisplayInterstitial([location UTF8String]);
-        }
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        return delegate->shouldDisplayInterstitial([location UTF8String]);
     }
+
     return YES;
 }
 
 - (void)didCacheInterstitial:(NSString *)location {
-    if (s_pChartboostX) {
-        if (ChartboostXDelegate* delegate = s_pChartboostX->getDelegate()) {
-            delegate->didCacheInterstitial([location UTF8String]);
-        }
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        delegate->didCacheInterstitial([location UTF8String]);
     }
 }
 
 - (void)didFailToLoadInterstitial:(NSString *)location {
-    if (s_pChartboostX) {
-        if (ChartboostXDelegate* delegate = s_pChartboostX->getDelegate()) {
-            delegate->didFailToLoadInterstitial([location UTF8String]);
-        }
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        delegate->didFailToLoadInterstitial([location UTF8String]);
     }
 }
 
 - (void)didDismissInterstitial:(NSString *)location {
-    if (s_pChartboostX) {
-        if (ChartboostXDelegate* delegate = s_pChartboostX->getDelegate()) {
-            delegate->didDismissInterstitial([location UTF8String]);
-        }
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        delegate->didDismissInterstitial([location UTF8String]);
     }
 }
 
 - (void)didCloseInterstitial:(NSString *)location {
-    if (s_pChartboostX) {
-        if (ChartboostXDelegate* delegate = s_pChartboostX->getDelegate()) {
-            delegate->didCloseInterstitial([location UTF8String]);
-        }
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        delegate->didCloseInterstitial([location UTF8String]);
     }
 }
 
 - (void)didClickInterstitial:(NSString *)location {
-    if (s_pChartboostX) {
-        if (ChartboostXDelegate* delegate = s_pChartboostX->getDelegate()) {
-            delegate->didClickInterstitial([location UTF8String]);
-        }
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        delegate->didClickInterstitial([location UTF8String]);
     }
 }
 
 - (BOOL)shouldDisplayLoadingViewForMoreApps {
-    if (s_pChartboostX) {
-        if (ChartboostXDelegate* delegate = s_pChartboostX->getDelegate()) {
-            return delegate->shouldDisplayLoadingViewForMoreApps();
-        }
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        return delegate->shouldDisplayLoadingViewForMoreApps();
     }
+    
     return YES;
 }
 
 - (BOOL)shouldDisplayMoreApps {
-    if (s_pChartboostX) {
-        if (ChartboostXDelegate* delegate = s_pChartboostX->getDelegate()) {
-            return delegate->shouldDisplayMoreApps();
-        }
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        return delegate->shouldDisplayMoreApps();
     }
+    
     return YES;
 }
 
 - (void)didCacheMoreApps {
-    if (s_pChartboostX) {
-        if (ChartboostXDelegate* delegate = s_pChartboostX->getDelegate()) {
-            delegate->didCacheMoreApps();
-        }
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        delegate->didCacheMoreApps();
     }
 }
 
 - (void)didFailToLoadMoreApps {
-    if (s_pChartboostX) {
-        if (ChartboostXDelegate* delegate = s_pChartboostX->getDelegate()) {
-            delegate->didFailToLoadMoreApps();
-        }
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        delegate->didFailToLoadMoreApps();
     }
 }
 
 - (void)didDismissMoreApps {
-    if (s_pChartboostX) {
-        if (ChartboostXDelegate* delegate = s_pChartboostX->getDelegate()) {
-            delegate->didDismissMoreApps();
-        }
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        delegate->didDismissMoreApps();
     }
 }
 
 - (void)didCloseMoreApps {
-    if (s_pChartboostX) {
-        if (ChartboostXDelegate* delegate = s_pChartboostX->getDelegate()) {
-            delegate->didCloseMoreApps();
-        }
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        delegate->didCloseMoreApps();
     }
 }
 
 - (void)didClickMoreApps {
-    if (s_pChartboostX) {
-        if (ChartboostXDelegate* delegate = s_pChartboostX->getDelegate()) {
-            delegate->didClickMoreApps();
-        }
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        delegate->didClickMoreApps();
     }
 }
 
 - (BOOL)shouldRequestInterstitialsInFirstSession {
-    if (s_pChartboostX) {
-        if (ChartboostXDelegate* delegate = s_pChartboostX->getDelegate()) {
-            return delegate->shouldRequestInterstitialsInFirstSession();
-        }
+    if (ChartboostXDelegate* delegate = ChartboostX::sharedChartboostX()->getDelegate()) {
+        return delegate->shouldRequestInterstitialsInFirstSession();
     }
+    
     return YES;
 }
 
