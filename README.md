@@ -10,7 +10,7 @@ A C++ wrapper of [Chartboost](http://chartboost.com//) for [Cocos2d-X](https://g
 	* iOS: v3.1.1
 
 * ###cocos2d-x
-	* cocos2d-2.3 or higher
+	* cocos2d-x-2.0.3 or higher
 
 #Example Project
 1. iOS: example/proj.ios/HelloChartboostX.xcodeproj
