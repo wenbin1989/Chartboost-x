@@ -1,7 +1,7 @@
-![Chartboost Icon](http://chartboost.com/img/web/logo_172x90.png) ==> ![-X Icon](http://pic.yupoo.com/diwup_v/BY5waKBY/MC5wD.png)
+![Chartboost Icon](https://chartboost.com/images/chartboost-logo.svg) ==> ![-X Icon](http://pic.yupoo.com/diwup_v/BY5waKBY/MC5wD.png)
 
 #ChartboostX
-A C++ wrapper of [Chartboost](http://chartboost.com//) for [Cocos2d-X](https://github.com/cocos2d/cocos2d-x). Supports Android and iOS.
+A C++ wrapper of [Chartboost](https://chartboost.com) for [Cocos2d-X](https://github.com/cocos2d/cocos2d-x). Supports Android and iOS.
 
 #Environment
 
@@ -20,11 +20,11 @@ A C++ wrapper of [Chartboost](http://chartboost.com//) for [Cocos2d-X](https://g
 
 #Add to Your Own Project
 
-***iOS and Android will share the same `ChartboostX.h` header file. You need add `Charboost-x/ChartboostX.h` to your `Classes` folder in the beginning.***
+***iOS and Android will share the same `ChartboostX.h` header file. You need add `Chartboost-x/ChartboostX.h` to your `Classes` folder in the beginning.***
 
 ### iOS
 
-All the following files you need in iOS are in `Charboost-x/ios` fold.
+All the following files you need in iOS are in `Chartboost-x/ios` fold.
 
 1. Add the previous `ChartboostX.h` to your Xcode project
 2. Add `CBAnalytics.h`, `Chartboost.h`, `ChartboostX_ios.mm`, `libChartboost.a` to your Xcode project
@@ -37,7 +37,7 @@ All the following files you need in iOS are in `Charboost-x/ios` fold.
 
 ### Android
 
-All the following files you need in Android are in `Charboost-x/android` fold.
+All the following files you need in Android are in `Chartboost-x/android` fold.
 
 1. Add the package `com.wenbin.ChartboostX` and its `ChartboostXBridge.java` to your Eclipse project.
 *(You can just add the whole `com` fold to `src` fold in Eclipse project, and refresh in Eclipse)*
@@ -75,7 +75,7 @@ All the following files you need in Android are in `Charboost-x/android` fold.
 			>
 		</activity>
 
-#Email: <wenbin1989@gmail.com>
-#Blog: <http://geeksavetheworld.com>
+##Email: <wenbin1989@gmail.com>
+##Blog: <http://geeksavetheworld.com>
 
-#You're welcome to contribute. ;-)
+##You're welcome to contribute. ;-)

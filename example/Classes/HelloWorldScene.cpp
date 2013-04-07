@@ -47,7 +47,7 @@ bool HelloWorld::init()
                                         this,
                                         menu_selector(HelloWorld::menuCloseCallback));
     
-	pCloseItem->setPosition(ccp(origin.x + visibleSize.width - pCloseItem->getContentSize().width/2 ,
+    pCloseItem->setPosition(ccp(origin.x + visibleSize.width - pCloseItem->getContentSize().width/2 ,
                                 origin.y + pCloseItem->getContentSize().height/2));
 
     // create menu, it's an autorelease object

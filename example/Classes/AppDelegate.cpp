@@ -24,7 +24,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // Set the design resolution
     pEGLView->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionNoBorder);
 
-	CCSize frameSize = pEGLView->getFrameSize();
+    CCSize frameSize = pEGLView->getFrameSize();
 
     // In this demo, we select resource according to the frame's height.
     // If the resource size is different from design resolution size, you need to set contentScaleFactor.
@@ -32,24 +32,24 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // this can make sure that the resource's height could fit for the height of design resolution.
 
     // if the frame's height is larger than the height of medium resource size, select large resource.
-	if (frameSize.height > mediumResource.size.height)
-	{ 
-		CCFileUtils::sharedFileUtils()->setResourceDirectory(largeResource.directory);
+    if (frameSize.height > mediumResource.size.height)
+    {
+        CCFileUtils::sharedFileUtils()->setResourceDirectory(largeResource.directory);
         pDirector->setContentScaleFactor(largeResource.size.height/designResolutionSize.height);
-	}
+    }
     // if the frame's height is larger than the height of small resource size, select medium resource.
     else if (frameSize.height > smallResource.size.height)
-    { 
+    {
         CCFileUtils::sharedFileUtils()->setResourceDirectory(mediumResource.directory);
         pDirector->setContentScaleFactor(mediumResource.size.height/designResolutionSize.height);
     }
     // if the frame's height is smaller than the height of medium resource size, select small resource.
-	else
-    { 
-		CCFileUtils::sharedFileUtils()->setResourceDirectory(smallResource.directory);
+    else
+    {
+        CCFileUtils::sharedFileUtils()->setResourceDirectory(smallResource.directory);
         pDirector->setContentScaleFactor(smallResource.size.height/designResolutionSize.height);
     }
-	
+
     // turn on display FPS
     pDirector->setDisplayStats(true);
 
@@ -58,7 +58,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // Begin a user session. This should be done once per boot
     ChartboostX::sharedChartboostX()->startSession();
-    
+
     /*
      * Add your own app id & signature. These can be found on App Edit page for your app in the Chartboost dashboard
      *
@@ -67,7 +67,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
      */
     ChartboostX::sharedChartboostX()->setAppId("4f7b433509b6025804000002");
     ChartboostX::sharedChartboostX()->setAppSignature("dd2d41b69ac01b80f443f5b6cf06096d457f82bd");
-    
+
     // create a scene. it's an autorelease object
     CCScene *pScene = HelloWorld::scene();
 

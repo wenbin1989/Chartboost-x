@@ -31,19 +31,19 @@ import com.wenbin.ChartboostX.*;
 
 public class HelloChartboostX extends Cocos2dxActivity{
 
-	protected void onCreate(Bundle savedInstanceState){
-		super.onCreate(savedInstanceState);
-		
-		ChartboostXBridge.initChartboostXBridge(this);
-	}
-	
-	@Override 
-	protected void onResume()
-	{
-	   	super.onResume();
-	   	ChartboostXBridge.initChartboostXBridge(this);
-	}
-	
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        
+        ChartboostXBridge.initChartboostXBridge(this);
+    }
+    
+    @Override 
+    protected void onResume()
+    {
+        super.onResume();
+        ChartboostXBridge.initChartboostXBridge(this);
+    }
+    
     static {
          System.loadLibrary("hellochartboostx");
     }
