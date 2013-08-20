@@ -1,5 +1,3 @@
-![Chartboost Icon](https://chartboost.com/images/chartboost-logo.svg) ==> ![-X Icon](http://pic.yupoo.com/diwup_v/BY5waKBY/MC5wD.png)
-
 #ChartboostX
 A C++ wrapper of [Chartboost](https://chartboost.com) for [Cocos2d-X](https://github.com/cocos2d/cocos2d-x). Supports Android and iOS.
 
